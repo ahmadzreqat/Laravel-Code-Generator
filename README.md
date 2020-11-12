@@ -1,8 +1,11 @@
-
+<div class="row">
 <img src="https://img.shields.io/github/issues/ahmadzreqat/generator" >
 <img src="https://img.shields.io/github/forks/ahmadzreqat/generator" >
 <img src="https://img.shields.io/github/stars/ahmadzreqat/generator" >
 <img src="https://img.shields.io/github/license/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/watchers/ahmadzreqat/generator?style=social" >
+ </div>
+
 # generator Laravel package 
 
 <img src="https://github.com/ahmadzreqat/generator/blob/master/Screenshot%202020-11-12%20213655.png">

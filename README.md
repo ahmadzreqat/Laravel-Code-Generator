@@ -21,6 +21,7 @@ OR :
 ```bash
 composer require asz/generator
 ```
+* Then :
 ```bash
 composer dump-autoload
 ```

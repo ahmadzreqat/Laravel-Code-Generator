@@ -33,6 +33,8 @@ $ php artisan vendor:publish --tag="config.generator"
 $ php artisan config:cache
 ```
 
+##### Now visit yourdomain/generator to start generate your code with multiable options 
+ * also you can change default route and put middleware from config/generator.php
 
 this packege will generate :
 * Migration file with data type  columns 

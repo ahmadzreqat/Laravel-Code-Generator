@@ -1,7 +1,7 @@
 
 
 # generator Laravel package 
-
+<img src="https://github.com/ahmadzreqat/generator/blob/master/Screenshot%202020-11-12%20213655.png">
 
 ## Overview
 This is a Laravel package to generate your code 

@@ -1,0 +1,53 @@
+<?php
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\{{Table}};
+use App\Http\Requests\{{Table}}Requests;
+
+class {{Table}}Controller extends Controller
+{
+
+    public function index()
+    {
+        //
+    }
+
+    public function create()
+    {
+        //
+    }
+
+
+    public function store({{Table}}Requests $request )
+    {
+        {{Table}}::create($request->all());
+    }
+
+
+    public function show($id)
+    {
+        ${{Table}} = {{Table}}::findOrFail($id);
+    }
+
+    public function edit($id)
+    {
+        ${{Table}} = {{Table}}::findOrFail($id);
+    }
+
+
+    public function update({{Table}}Requests $request, $id)
+    {
+         ${{Table}} = {{Table}}::findOrFail($id);
+         ${{Table}}->update($request->all());
+
+    }
+
+
+    public function destroy($id)
+    {
+       ${{Table}} = {{Table}}::findOrFail($id);
+       ${{Table}}->delete();
+    }
+}

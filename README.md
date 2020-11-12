@@ -1,4 +1,4 @@
-<div class="row">
+<div class="center row">
 <img src="https://img.shields.io/github/issues/ahmadzreqat/generator" >
 <img src="https://img.shields.io/github/stars/ahmadzreqat/generator" >
 <img src="https://img.shields.io/github/license/ahmadzreqat/generator" >

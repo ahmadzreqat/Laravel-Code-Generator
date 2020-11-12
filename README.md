@@ -1,5 +1,8 @@
 
-
+<img src="https://img.shields.io/github/issues/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/forks/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/stars/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/license/ahmadzreqat/generator" >
 # generator Laravel package 
 
 <img src="https://github.com/ahmadzreqat/generator/blob/master/Screenshot%202020-11-12%20213655.png">

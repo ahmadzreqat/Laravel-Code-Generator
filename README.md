@@ -5,7 +5,12 @@
 <img src="https://github.com/ahmadzreqat/generator/blob/master/Screenshot%202020-11-12%20213655.png">
 
 ## Overview
-This is a Laravel package to generate your code 
+* This is a Laravel package to generate your code :
+ - all DB data type and keys is added
+
+ - when you fill out the table form the packege will generate 
+   Model , Controller , Requests , Routes and Migration files
+   with all fields that's added in form  
 
 
 
@@ -135,7 +140,7 @@ class TestingRequests extends FormRequest
 }
 ```
 
-* controller with default methods and generate.
+* generate controller with default methods.
 continue with same  example when Generate TestTable : 
 ```bash
 <?php
@@ -193,8 +198,8 @@ class TestingController extends Controller
 }
 ```
 
-*Routes Generates and can choose your middleware "default null"
-continue with same  example when Generate TestTable : 
+* Routes Generates and can choose your middleware "default null"
+
 
 ```bash 
 Route::group(['prefix' => 'testing', 'middleware' => ''], function () {

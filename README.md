@@ -20,7 +20,7 @@
 
 
 ## Installation :
-You can install `asz/generator` via Composer by adding `"asz/generator": "^1.0"` 
+You can install `asz/generator` via Composer by adding `"asz/generator": "^1.1"` 
 as requirement to your composer.json. 
 OR : 
 ```bash

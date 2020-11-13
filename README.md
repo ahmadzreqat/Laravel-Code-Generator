@@ -1,4 +1,9 @@
-
+<div class="row" align="center">
+<img src="https://img.shields.io/github/issues/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/stars/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/license/ahmadzreqat/generator" >
+<img src="https://img.shields.io/github/watchers/ahmadzreqat/generator?style=social" >
+ </div>
 
 # generator Laravel package 
 

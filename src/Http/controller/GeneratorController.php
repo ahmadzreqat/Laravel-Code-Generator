@@ -35,7 +35,10 @@ class GeneratorController extends controller
             Artisan::call("generate:magic " . strtolower($request->table) .
                 " --name=" . collect($request->columnName)->implode(',') .
                 " --dataType=" . collect($request->DataType)->implode(',') .
-                " --noDefaults=" . collect($request->key)->implode(','));
+                " --noDefaults=" . collect($request->key)->implode(',') .
+                " --def=" . collect($request->default)->implode(',') .
+                " --cont=" . $request->ControllerPath .
+                " --model=" . $request->ModelPath);
 
             if ($request->has('migrate')) {
                 Artisan::call('migrate');
@@ -66,6 +69,8 @@ class GeneratorController extends controller
 
     private function ClassNotExist($table)
     {
+
+        if (!file_exists($migration = database_path('migrations'))) mkdir($migration, 0777, true);
         $migrationPath = database_path("migrations");
         $files = scandir($migrationPath);
 

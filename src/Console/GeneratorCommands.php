@@ -15,7 +15,7 @@ class GeneratorCommands extends Command
      * @var string
      * make columns as array
      */
-    protected $signature = 'generate:magic {table}  {--name=}{--dataType=}{--noDefaults=} ';
+    protected $signature = 'generate:magic {table}  {--name=}{--dataType=}{--noDefaults=} {--def=} {--cont=} {--model=}';
 
     protected $description = 'create migrations-DBTable-controller-model-request files  ';
 
@@ -31,23 +31,33 @@ class GeneratorCommands extends Command
     }
 
 
-    protected function CreateMigrateTemplate($table, $names, $dataTypes, $noDefaults)
+    protected function CreateMigrateTemplate($table, $names, $dataTypes, $noDefaults, $Defaults)
     {
+
+
         $Sanitizer = [];
         $colName = [];
+
         foreach (explode(',', $names) as $index => $name) {
             $colName [] = [$name => 'required'];
-
             foreach (explode(',', $dataTypes) as $key => $dataType) {
                 foreach (explode(',', $noDefaults) as $NoDefaultsKey => $noDefault) {
-                    if ($index == $key && $index == $NoDefaultsKey) {
-                        $noDefault != '' || $noDefault != null  ? $noDefault = '->' . $noDefault . '()' : $noDefault = null;
-                        if ($noDefault == 0) $noDefault = null;
-                        $Sanitizer[] = "$" . "table->$dataType('$name')$noDefault;";
+                    foreach (explode(',', $Defaults) as $DefaultsKey => $Default) {
+                        if ($index == $key && $index == $NoDefaultsKey && $index == $DefaultsKey) {
+                            if ($noDefault == 'null') {
+                                $SanitizeNoDefault = null;
+                            } elseif ($Default != 'null') {
+                                $SanitizeNoDefault = '->' . $noDefault . "($Default)";
+                            } else {
+                                $SanitizeNoDefault = '->' . $noDefault . "()";
+                            }
+                            $Sanitizer[] = "$" . "table->$dataType" . "('" . strtolower($name) . "')" . "$SanitizeNoDefault;";
+                        }
                     }
                 }
             }
         }
+
         $ColumnName = (collect($colName)->collapse()->toArray());
         $this->ModelColumnName = array_keys($ColumnName);
         $FixedRequestColumnName = [];
@@ -62,16 +72,23 @@ class GeneratorCommands extends Command
             [strtolower($table), $fixedArray],
             $this->getStub('migration')
         );
-        file_put_contents(database_path("/migrations/" . date('Y_m_d') .'_' . mt_rand()  .'_create_' . strtolower($table) . '_table.php'), $MigrateTemplate);
+        file_put_contents(database_path("/migrations/" . date('Y_m_d') . '_' . mt_rand() . '_create_' . strtolower($table) . '_table.php'), $MigrateTemplate);
 
     }
 
 
-    protected function CreateModelTemplate($table)
+    protected function CreateModelTemplate($table, $path = null)
     {
         $ModelTemplate = str_replace(['{{ Table }}', '{{ColumnName}}'], [ucfirst($table), collect($this->ModelColumnName)], $this->getStub('model'));
         if (!file_Exists($ModelFile = app_path("/Models"))) mkdir($ModelFile, 0777, true);
-        file_put_contents(app_path("/Models/" . ucfirst($table) . '.php'), $ModelTemplate);
+
+        if ($path != null) {
+            if (!file_Exists($ModelFile = app_path("/Models/$path")))
+                mkdir($ModelFile, 0777, true);
+            return file_put_contents(app_path("/Models/$path/" . ucfirst($table) . ".php"), $ModelTemplate);
+        }
+
+        return file_put_contents(app_path("/Models/" . ucfirst($table) . '.php'), $ModelTemplate);
     }
 
     protected function CreateRequestTemplate($table)
@@ -89,7 +106,7 @@ class GeneratorCommands extends Command
         if ($path != null) {
             if (!file_Exists($ControllerFile = app_path("/Http/Controllers/$path")))
                 mkdir($ControllerFile, 0777, true);
-            return file_put_contents(app_path("/Http/Controllers/$path" . ucfirst($table) . "Controller.php"), $ControllerTemplate);
+            return file_put_contents(app_path("/Http/Controllers/$path/" . ucfirst($table) . "Controller.php"), $ControllerTemplate);
         }
         return file_put_contents(app_path("/Http/Controllers/" . ucfirst($table) . "Controller.php"), $ControllerTemplate);
 
@@ -102,13 +119,18 @@ class GeneratorCommands extends Command
         $name = $this->option('name');
         $dataType = $this->option('dataType');
         $noDefaults = $this->option('noDefaults');
-        $this->CreateMigrateTemplate($table, $name, $dataType, $noDefaults);
+        $Defaults = $this->option('def');
+        $ControllerPath = $this->option('cont');
+        $ModelPath = $this->option('model');
+
+
+        $this->CreateMigrateTemplate($table, $name, $dataType, $noDefaults, $Defaults);
         $this->comment('successfully created Migration ');
-        $this->CreateModelTemplate($table);
+        $this->CreateModelTemplate($table, $ModelPath);
         $this->comment('successfully created Model ');
         $this->CreateRequestTemplate($table);
         $this->comment('successfully created Requests ');
-        $this->CreateControllerTemplate($table);
+        $this->CreateControllerTemplate($table, $ControllerPath);
         $this->comment('successfully created Controller ');
         $this->comment('successfully created enjoy ! ');
     }

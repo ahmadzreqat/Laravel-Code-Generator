@@ -162,36 +162,40 @@ class TestingController extends Controller
 
     public function index()
     {
-        //
+          // your return route here
     }
 
     public function create()
     {
-        //
+          // your return route here
     }
 
 
     public function store(TestingRequests $request )
     {
-        Testing::create($request->all());
+        Testing::create($request->validated());
+          // your return route here
     }
 
 
     public function show($id)
     {
         $Testing = Testing::findOrFail($id);
+          // your return route here
     }
 
     public function edit($id)
     {
         $Testing = Testing::findOrFail($id);
+          // your return route here
     }
 
 
     public function update(TestingRequests $request, $id)
     {
          $Testing = Testing::findOrFail($id);
-         $Testing->update($request->all());
+         $Testing->update($request->validated());
+         // your return route here
 
     }
 
@@ -200,6 +204,7 @@ class TestingController extends Controller
     {
        $Testing = Testing::findOrFail($id);
        $Testing->delete();
+         // your return route here
     }
 }
 ```
@@ -211,7 +216,7 @@ class TestingController extends Controller
 Route::group(['prefix' => 'testing', 'middleware' => ''], function () {
     Route::get('/', [App\Http\Controllers\testingController::class, 'index']);
     Route::post('/store', [App\Http\Controllers\testingController::class, 'store']);
-    Route::post('/edit/{id}', [App\Http\Controllers\testingController::class, 'edit']);
+    Route::get('/edit/{id}', [App\Http\Controllers\testingController::class, 'edit']);
     Route::put('/update/{id}', [App\Http\Controllers\testingController::class, 'update']);
     Route::delete('/destroy/{id}', [App\Http\Controllers\testingController::class, 'destroy']);
     Route::get('/show/{id}', [App\Http\Controllers\testingController::class, 'show']);

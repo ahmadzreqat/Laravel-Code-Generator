@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/github/watchers/ahmadzreqat/generator?style=social" >
  </div>
 
-# generator Laravel package 
+# Laravel generator  package 
 
 <img src="https://github.com/ahmadzreqat/generator/blob/master/Screenshot%202020-11-12%20213655.png">
 
